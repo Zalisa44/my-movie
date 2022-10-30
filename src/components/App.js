@@ -48,6 +48,7 @@ class App extends React.Component {
         img: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/apETSIY0oXOFvI0MgUWW81uRqsL.jpg",
       },
     ],
+    searchQuery: "",
   };
 
   deleteMovie = (movie) => {
@@ -61,19 +62,28 @@ class App extends React.Component {
     this.setState((state) => ({ movies: newMovieList }));
   };
 
+  searchMovie = (event) => {
+    this.setState({ searchQuery: event.target.value });
+  };
+
   render() {
+    let filtered = this.state.movies.filter((movie) => {
+      return (
+        movie.title
+          .toLowerCase()
+          .indexOf(this.state.searchQuery.toLowerCase()) !== -1
+      );
+    });
+
     return (
       <div className="container">
         <div className="row">
           <div className="col-lg-12">
-            <SeachBar />
+            <SeachBar searchMovieProps={this.searchMovie} />
           </div>
         </div>
 
-        <MovieList
-          movies={this.state.movies}
-          deleteMovieProp={this.deleteMovie}
-        />
+        <MovieList movies={filtered} deleteMovieProp={this.deleteMovie} />
       </div>
     );
   }
