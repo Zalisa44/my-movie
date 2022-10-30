@@ -1,10 +1,6 @@
 import React from "react";
 
 class SeachBar extends React.Component {
-  state = {
-    seachQuery: "",
-  };
-
   clickHeandler = (e) => {
     e.preventDefault();
   };
@@ -20,9 +16,7 @@ class SeachBar extends React.Component {
                 className="form-control"
                 placeholder="Select a Movie"
                 type="text"
-                onChange={(event) =>
-                  this.setState({ seachQuery: event.target.value })
-                }
+                onChange={this.props.searchMovieProps}
               ></input>
             </div>
           </div>
